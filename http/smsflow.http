@@ -1,0 +1,32 @@
+@baseUrl = https://portal.smsflow.co.za
+@clientId = YOUR_CLIENT_ID
+@clientSecret = YOUR_CLIENT_SECRET
+@token = YOUR_LOGIN_TOKEN
+@destination = 27000000000
+
+### Get login token
+GET {{baseUrl}}/api/integration/authentication
+Authorization: Basic {{clientId}} {{clientSecret}}
+
+### Send SMS
+POST {{baseUrl}}/api/integration/BulkMessages
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "SendOptions": {
+    "startDeliveryUtc": null,
+    "campaignName": "HTTP file example",
+    "checkOptOuts": true
+  },
+  "messages": [
+    {
+      "content": "Your SMSFlow HTTP file test message was sent successfully.",
+      "destination": "{{destination}}"
+    }
+  ]
+}
+
+### Check balance
+GET {{baseUrl}}/api/integration/Balance
+Authorization: Bearer {{token}}

@@ -1,0 +1,62 @@
+{
+  "info": {
+    "name": "SMSFlow HTTPS API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "https://portal.smsflow.co.za" },
+    { "key": "clientId", "value": "YOUR_CLIENT_ID" },
+    { "key": "clientSecret", "value": "YOUR_CLIENT_SECRET" },
+    { "key": "token", "value": "YOUR_LOGIN_TOKEN" },
+    { "key": "destination", "value": "27000000000" }
+  ],
+  "item": [
+    {
+      "name": "Get login token",
+      "request": {
+        "method": "GET",
+        "auth": {
+          "type": "basic",
+          "basic": [
+            { "key": "username", "value": "{{clientId}}", "type": "string" },
+            { "key": "password", "value": "{{clientSecret}}", "type": "string" }
+          ]
+        },
+        "url": "{{baseUrl}}/api/integration/authentication"
+      }
+    },
+    {
+      "name": "Send SMS",
+      "request": {
+        "method": "POST",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            { "key": "token", "value": "{{token}}", "type": "string" }
+          ]
+        },
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"SendOptions\": {\n    \"startDeliveryUtc\": null,\n    \"campaignName\": \"Postman API example\",\n    \"checkOptOuts\": true\n  },\n  \"messages\": [\n    {\n      \"content\": \"Your SMSFlow Postman test message was sent successfully.\",\n      \"destination\": \"{{destination}}\"\n    }\n  ]\n}"
+        },
+        "url": "{{baseUrl}}/api/integration/BulkMessages"
+      }
+    },
+    {
+      "name": "Check balance",
+      "request": {
+        "method": "GET",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            { "key": "token", "value": "{{token}}", "type": "string" }
+          ]
+        },
+        "url": "{{baseUrl}}/api/integration/Balance"
+      }
+    }
+  ]
+}
