@@ -1,0 +1,21 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate Postman JSON
+        run: python -m json.tool postman/SMSFlow.postman_collection.json > /tmp/postman.json
+      - name: Check for committed secrets
+        run: |
+          if grep -R --line-number --exclude-dir=.git --exclude=.env.example --exclude='*.md' "ghp_\|gho_\|glpat-\|xoxb-\|sk_live_\|SMSFLOW_CLIENT_SECRET=.*[A-Za-z0-9_-]\{16,\}" .; then
+            echo "Potential secret detected"
+            exit 1
+          fi
