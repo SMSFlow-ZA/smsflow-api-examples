@@ -12,7 +12,14 @@ if ([string]::IsNullOrWhiteSpace($env:SMSFLOW_CLIENT_ID) -or [string]::IsNullOrW
 $pair = "$($env:SMSFLOW_CLIENT_ID):$($env:SMSFLOW_CLIENT_SECRET)"
 $basic = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($pair))
 
-Invoke-RestMethod `
+$auth = Invoke-RestMethod `
     -Method Get `
     -Uri "$($baseUrl.TrimEnd('/'))/api/integration/authentication" `
     -Headers @{ Authorization = "Basic $basic" }
+
+if ($env:SMSFLOW_VERBOSE_RESPONSE -eq "true") {
+    $auth
+}
+else {
+    Write-Host "Authentication succeeded. Token expires in $($auth.expiresInMinutes) minutes."
+}

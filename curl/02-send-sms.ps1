@@ -20,6 +20,10 @@ $auth = Invoke-RestMethod `
     -Uri "$($baseUrl.TrimEnd('/'))/api/integration/authentication" `
     -Headers @{ Authorization = "Basic $basic" }
 
+$runId = [Guid]::NewGuid().ToString("N").Substring(0, 12)
+$sentAt = (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
+$message = "Your SMSFlow PowerShell test message was sent successfully. Run $runId at $sentAt."
+
 $body = @{
     SendOptions = @{
         startDeliveryUtc = $null
@@ -28,7 +32,7 @@ $body = @{
     }
     messages = @(
         @{
-            content = "Your SMSFlow PowerShell test message was sent successfully."
+            content = $message
             destination = $env:SMSFLOW_DESTINATION
         }
     )
