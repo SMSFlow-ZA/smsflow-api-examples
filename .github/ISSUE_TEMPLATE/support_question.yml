@@ -1,0 +1,13 @@
+name: API examples support question
+description: Ask a usage question about the SMSFlow API examples.
+title: "[Support]: "
+labels: ["question"]
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: Question
+      description: Include sanitized commands, request bodies, and responses only.
+    validations:
+      required: true
+
