@@ -1,5 +1,8 @@
 # SMSFlow API Examples
 
+[![CI](https://github.com/SMSFlow-ZA/smsflow-api-examples/actions/workflows/ci.yml/badge.svg)](https://github.com/SMSFlow-ZA/smsflow-api-examples/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 Public examples for integrating with the SMSFlow HTTPS API.
 
 Use this repository when you want to test the raw HTTP contract before choosing an SDK. It includes cURL-style PowerShell scripts, a Postman collection, and editor-friendly `.http` requests for the same core workflow.
@@ -52,3 +55,9 @@ Live sends consume SMSFlow credits.
 Read the SMSFlow developer documentation at:
 
 https://docs.smsflow.co.za/
+
+Official SDK packages:
+
+- Node.js: [`@smsflow/smsflow`](https://www.npmjs.com/package/@smsflow/smsflow)
+- .NET: [`SmsFlow`](https://www.nuget.org/packages/SmsFlow)
+- Python: [`smsflow`](https://pypi.org/project/smsflow/)
